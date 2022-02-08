@@ -136,6 +136,8 @@ function gutenberg_reregister_core_block_types() {
 		foreach ( $block_folders as $folder_name ) {
 			$block_json_file = $blocks_dir . $folder_name . '/block.json';
 
+            $metadata = wp_cache_get($block_json_file, 'json');
+            if ( ! is_array( $metadata ) ) {
 			// Ideally, all paths to block metadata files should be listed in
 			// WordPress core. In this place we should rather use filter
 			// to replace paths with overrides defined by the plugin.
@@ -143,6 +145,8 @@ function gutenberg_reregister_core_block_types() {
 			if ( ! is_array( $metadata ) || ! $metadata['name'] ) {
 				return false;
 			}
+            wp_cache_add($block_json_file, $metadata, 'json');
+            }
 
 			if ( $registry->is_registered( $metadata['name'] ) ) {
 				$registry->unregister( $metadata['name'] );

@@ -19,8 +19,15 @@ function gutenberg_is_fse_theme() {
 		return wp_is_block_theme();
 	}
 
-	return is_readable( get_theme_file_path( '/block-templates/index.html' ) ) ||
+	$found;
+	$result = wp_cache_get('is_fse_theme', 'gutenberg', false, $found);
+	if ($found)
+		return $result;
+
+	$result = is_readable( get_theme_file_path( '/block-templates/index.html' ) ) ||
 		is_readable( get_theme_file_path( '/templates/index.html' ) );
+	wp_cache_add('is_fse_theme', $result, 'gutenberg');
+	return $result;
 }
 
 /**

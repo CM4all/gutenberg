@@ -46,11 +46,11 @@ const blockBasenames = getAvailableBlockFixturesBasenames();
  */
 const normalizeParsedBlocks = ( blocks ) =>
 	blocks.map( ( block, index ) => ( {
-		name: block.name,
 		clientId: `_clientId_${ index }`,
+		name: block.name,
+		isValid: block.isValid,
 		attributes: JSON.parse( JSON.stringify( block.attributes ) ),
 		innerBlocks: normalizeParsedBlocks( block.innerBlocks ),
-		isValid: block.isValid,
 	} ) );
 
 describe( 'full post content fixture', () => {

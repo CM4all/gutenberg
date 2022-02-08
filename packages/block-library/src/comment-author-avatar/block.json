@@ -28,6 +28,7 @@
 	"usesContext": [ "commentId", "postType", "postId" ],
 	"supports": {
 		"html": false,
+		"inserter": false,
 		"__experimentalBorder": {
 			"radius": true,
 			"width": true,
